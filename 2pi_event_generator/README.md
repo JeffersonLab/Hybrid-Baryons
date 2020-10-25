@@ -2,13 +2,13 @@ Generator is exclusive and electroproduction (but at low Q2 it uses photoproduct
 
 The generator works in the following way: first, it generates phase space (flat) distributions and then for each event multidimensional cross section is applied as a weight. 
 
-The generator includes radiative effects according to Mo&Tsai. It also includes fermi-smearing if needed (see CLAS12-NOTE-2014 on that matter).
+The generator includes radiative effects according to Mo&Tsai. It also includes Fermi smearing if needed (see CLAS12-NOTE-2014).
 
 --------------------------------------------------
 
 Output files:
 
-1) The generator can produce output in lund format with minor changes:  in the Header in field 6* instead of "x" the event number is put, and in field 10* instead of "nu" the cross section value is put.  (see also this slide https://clasweb.jlab.org/wiki/images/d/dc/Hybrid_Jan15_2016.pdf )
+1) The generator can produce output in lund format with minor changes:  in the Header in field 6* instead of "x" the event number is put, and in field 10* instead of "nu" the cross section value is put (see e.g. this slide https://clasweb.jlab.org/wiki/images/d/dc/Hybrid_Jan15_2016.pdf ),
 
 2) The generator also can make BOS output that is compatible with CLAS6 reconstruction procedure,
 
@@ -57,7 +57,7 @@ The generator needs .dat files with tabulated structure functions and fit parame
 
 --------------------------------------------------
 
-More details can be found in CLAS12-NOTE-2017-001 (arXiv:1703.08081) and CLAS12-NOTE-2017-014 (arXiv:1712.07712).
+See more details in CLAS12-NOTE-2017-001 (arXiv:1703.08081) and CLAS12-NOTE-2017-014 (arXiv:1712.07712).
 See also Iu. Skorodumina's wiki page: https://clasweb.jlab.org/wiki/index.php/TWOPEG_event_generator  
 
 --------------------------------------------------
