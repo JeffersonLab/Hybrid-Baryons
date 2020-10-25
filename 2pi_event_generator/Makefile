@@ -1,5 +1,5 @@
 BOS = bos
-NOBOS = nobos
+NOBOS = 
 CXX           = g++ -O2 -Wno-write-strings -Wno-pragmas -I$(CLAS_BUILD)/packages/include -I$(PWD)/interpol -I$(PWD)/get_xsect -I$(PWD)
 CXX_BOS       = g++ -DBOS -O2 -Wno-write-strings -Wno-pragmas -I$(CLAS_BUILD)/packages/include -I$(PWD)/interpol -I$(PWD)/get_xsect -I$(PWD)
 ObjSuf        = o
@@ -12,7 +12,7 @@ ROOTLIBS     := $(shell root-config --libs)
 ROOTGLIBS    := $(shell root-config --glibs)
 ROOTINCLUDE  := -I$(shell root-config --incdir)
 
-SRCS = main_prog.cxx global.cxx hist_def.cxx  inp_file_read.cxx  read_xsect_files.cxx  read_fit_param_files.cxx  out_file_open.cxx out_file_fill.cxx  out_file_close.cxx get_xsect/get_xsect_ripani.cxx get_xsect/get_xsect_fedotov.cxx get_xsect/get_xsect_q2_130_w_gt_18_lt_21.cxx  get_xsect/get_xsect_rip_fed_join.cxx get_xsect/get_xsect_near_threshold.cxx get_xsect/get_xsect_golovach.cxx get_xsect/get_xsect_14_18_lowq2_fit.cxx  get_xsect/get_xsect_scale_gol_18_25.cxx anti_rot.cxx rot.cxx interpol/interpol.cxx interpol/interpol_rip2.cxx interpol/interpol_golovach.cxx interpol/interpol_fedotov.cxx interpol/interpol_fedotov_thresh.cxx interpol/interpol_rip3.cxx interpol/interpol_q2_13_wgt_3.cxx interpol/interpol_phot_wgt_3.cxx interpol/interpol_gol2.cxx get_xsect/get_xsect_gol2.cxx get_xsect/get_xsect_25_30.cxx interpol/interpol_int.cxx radcorr.cxx fermi_bonn.cxx fermi_rot.cxx fermi_anti_rot.cxx get_xsect/get_xsect_q2_13_wgt_3.cxx 
+SRCS = main_prog.cxx global.cxx hist_def.cxx input.cxx read_xsect_files.cxx  read_fit_param_files.cxx  out_file_open.cxx out_file_fill.cxx  out_file_close.cxx get_xsect/get_xsect_ripani.cxx get_xsect/get_xsect_fedotov.cxx get_xsect/get_xsect_q2_130_w_gt_18_lt_21.cxx  get_xsect/get_xsect_rip_fed_join.cxx get_xsect/get_xsect_near_threshold.cxx get_xsect/get_xsect_golovach.cxx get_xsect/get_xsect_14_18_lowq2_fit.cxx  get_xsect/get_xsect_scale_gol_18_25.cxx anti_rot.cxx rot.cxx interpol/interpol.cxx interpol/interpol_rip2.cxx interpol/interpol_golovach.cxx interpol/interpol_fedotov.cxx interpol/interpol_fedotov_thresh.cxx interpol/interpol_rip3.cxx interpol/interpol_q2_13_wgt_3.cxx interpol/interpol_phot_wgt_3.cxx interpol/interpol_gol2.cxx get_xsect/get_xsect_gol2.cxx get_xsect/get_xsect_25_30.cxx interpol/interpol_int.cxx radcorr.cxx fermi_bonn.cxx fermi_rot.cxx fermi_anti_rot.cxx get_xsect/get_xsect_q2_13_wgt_3.cxx 
 
 OBJS = $(SRCS:.cxx=.o)
 
@@ -34,12 +34,12 @@ twopeg_$(BOS).exe: $(OBJS)
 	$(CXX) -g -c $(ROOTINCLUDE) -c $<  -o $@
 	
 
-nobos: remove twopeg_$(NOBOS).exe
+nobos: remove twopeg$(NOBOS)
 remove:
 	rm -f *.o
 	rm -f *Dict.*
 	rm -f G__*	
-twopeg_$(NOBOS).exe: $(OBJS) 
+twopeg$(NOBOS): $(OBJS) 
 	$(CXX) -g -o $@ $^ -L/usr/lib64    $(ROOTGLIBS)  -lEG
 
 
@@ -52,6 +52,5 @@ clean:
 	rm -f G__*
 	rm -f interpol/*.o 
 	rm -f get_xsect/*.o 
-	rm twopeg*.exe
+	rm twopeg twopeg_bos.exe
 	
-

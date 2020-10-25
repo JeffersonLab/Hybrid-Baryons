@@ -35,7 +35,7 @@
 #include <RQ_OBJECT.h>
 #include <iostream>
 
-#include "inp_file_read.h"
+#include "input.h"
 #include "hist_def.h"
 #include "read_xsect_files.h"
 #include "read_fit_param_files.h"
@@ -154,7 +154,10 @@ Me= part1->Mass();
 
 
 //Reading input parameters
-inp_file_read(E_beam);
+if (argc<2) input_stream(E_beam);
+if (argc>=2) input_cmd_line(E_beam, argc,argv);
+inp_couts(E_beam);
+
 //Reading diff cross section from the tables in .dat files (filling out GLOBAL arrays)
 read_xsect_files();
 //Reading fit parameterms, which are needed for cross section extrapolation
@@ -165,10 +168,11 @@ read_fit_param_files();
  
      
    //Reasonably changing max&min limits of kinematical variables if needed
+    cout << "___________________________________________\n\n";
     
      if (W_min < (1.2375)) {
     W_min = 1.2375;
-    cout << "minimum W has been changed to " << W_min << "\n";
+    cout << "Minimum W  has been changed to " << W_min << "\n";
     }; 
       
     if (W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min)) {
@@ -181,7 +185,7 @@ read_fit_param_files();
     
     if (Q2_min < Q2lim1) {
     Q2_min =Q2lim1;
-    cout << "minimum Q2 has been changed to " << Q2_min << "\n";
+    cout << "Minimum Q2 has been changed to " << Q2_min << "\n";
     };
  
    
@@ -192,13 +196,13 @@ read_fit_param_files();
   
     if (Q2_max > Q2lim2) {
     Q2_max = Q2lim2;
-    cout << "maximum Q2 has been changed to " << Q2_max << "\n";
+    cout << "Maximum Q2 has been changed to " << Q2_max << "\n";
     };
      
    
     if (W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min) {
     W_max = sqrt(MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min);
-    cout << "maximum W has been changed to " << W_max << "\n";
+    cout << "Maximum W  has been changed to " << W_max << "\n";
     };
   
 
@@ -230,6 +234,8 @@ cout <<"\n";
 //%%%%%%%%%%%%%%%%%%%%!I. GENERATION STARTS!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
 
+ cout << "____________EVENT GENERATION:______________\n\n";
+ 
 srand (time(NULL));
        
  TRandom3 ph_e_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
