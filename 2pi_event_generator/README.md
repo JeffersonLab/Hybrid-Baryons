@@ -3,6 +3,7 @@ Generator is exclusive and electroproduction (but at low Q2 it uses photoproduct
 The generator works in the following way: first, it generates phase space (flat) distributions and then for each event multidimensional cross section is applied as a weight. 
 
 The generator includes radiative effects according to Mo&Tsai. It also includes fermi-smearing if needed (see CLAS12-NOTE-2014 on that matter).
+
 --------------------------------------------------
 
 Output files:
@@ -12,6 +13,7 @@ Output files:
 2) The generator also can make BOS output that is compatible with CLAS6 reconstruction procedure,
 
 3) Two ROOT outputs: "out_hist_test.root" with some histograms for testing purpose and "tree_sigma.root" with the cross section weights for each event (stored as a tree).
+
 --------------------------------------------------
 
 The code incorporates rather large number of files, but the major part of them corresponds to the interpolation/extrapolation procedures for the cross section calculation (all files with names get_xsect* and interpol*).
@@ -31,6 +33,7 @@ anti_rot.cxx - contains the subroutine that calculates the 4-vectors of all fina
 rot.cxx - contains the subroutine that calculates hadron variables in the CMS from their 4-vectors in the lab frame.
 
 radcorr.cxx - performs radiative effects.
+
 --------------------------------------------------
 
 There are two compiling options: 
@@ -39,6 +42,7 @@ There are two compiling options:
 2) "make bos" - to compile with BOS libraries (suitable for CLAS). BOS output can be created according to the flag in the input file. Some of the libraries are located at "/u/home/gleb/lib/LinuxRHFC8" and sooner or later they will become irrelevant.
 
 It should compile on ifarms.
+
 ------------------------------------------------
 
 The generator supports two options for taking the input parameters:
@@ -46,13 +50,16 @@ The generator supports two options for taking the input parameters:
 1) As a cin stream from a certain input file. To use this option run as "./twopeg_bos.exe < inp1" (or "./twopeg < inp1"), where inp1 is in the same directory and contains input parameters with comments. 
 
 2) The command line input is also supported. For this option all input parameters are automatically taken from "data/inp_cmd_line". The EG should then be run as "./twopeg_bos.exe a" (or "./twopeg a"), where "a" is any charachter. The number of events to generate can also be reset with "./twopeg_bos.exe --trig Nevents" (or "./twopeg --trig Nevents"), where "Nevents" is the desired number of events.
+
 --------------------------------------------------
 
 The generator needs .dat files with tabulated structure functions and fit parameters. They are located in the "data" subfolder inside the EG directory. If you move it, you need to define environment variable "data_dir_2pi" that points to the new folder location (for example in csh use "setenv data_dir_2pi new_path/").
+
 --------------------------------------------------
 
 More details can be found in CLAS12-NOTE-2017-001 (arXiv:1703.08081) and CLAS12-NOTE-2017-014 (arXiv:1712.07712).
 See also Iu. Skorodumina's wiki page: https://clasweb.jlab.org/wiki/index.php/TWOPEG_event_generator  
+
 --------------------------------------------------
 
 Contact persons: Iuliia Skorodumina (skorodum@jlab.org) and Gleb Fedotov (gleb@jlab.org)
