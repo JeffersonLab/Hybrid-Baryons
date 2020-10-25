@@ -145,8 +145,9 @@ cout << "The cmd line input is used \nSee 'data/inp_cmd_line' for input paramete
 cout << endl; 
 
 string qqq;
-
 string inp_file_name;
+bool check_open_fail;
+
 
 //Building the full name of the input file 
 PATH << data_dir_2pi.str() << "data/inp_cmd_line";
@@ -157,7 +158,11 @@ string dummy,xsect;
 
 string file=inp_file_name;
 ifstream input(file.c_str());
-if (input.fail()) cout << "ALARM! 'data/inp_cmd_line' FAILED to open!!! \n"; 
+
+//Chencking if the file managed to open
+check_open_fail = input.fail();
+
+if (check_open_fail) cout << "ALARM! 'data/inp_cmd_line' FAILED to open!!! \n\n"; 
 if(input.is_open()){ 
 
 getline (input,qqq);
@@ -276,6 +281,7 @@ input.close();
 //Reassigment of the input parameters if cmd line value is different from that from the data/inp_cmd_line
 //Only number of event can be reassigned via the cmd line argument.
 //Other input parameters are taken from  data/inp_cmd_line
+if (!check_open_fail){
 for (Short_t i=0;i<argc;i++){
 std::string arg = argv[i];
 if (arg=="--trig") {
@@ -284,6 +290,9 @@ Nevents = atoi(argv[i+1]);
 cout << "Accoring to '--trig', Nevents was set to " <<Nevents<<"\n\n";
 }
 };
+};
+
+
 
 };     
     

@@ -24,5 +24,5 @@ out.bos         // BOS output file name
 1                 // Otput LUND file 0 - no, 1 - yes
 twopeg.dat        // LUND output file name
 0              // Radiative mode 0 - no rad effects, 1 - rad eff with no straggling,  2 - rad eff with straggling
-1               //Fermi smearing: 0 - no, 1 - yes
-1               //Multiplication by virtual photon flux: 0 - no (under influence of virtual photons), 1 - yes (under influence of electrons)
+0               //Fermi smearing: 0 - no, 1 - yes
+1               //Multiplication by virtual photon flux: 0 - no (virtual photoproduction), 1 - yes (electroproduction)
