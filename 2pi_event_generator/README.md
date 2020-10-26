@@ -53,7 +53,7 @@ The generator supports two options for taking the input parameters:
 
 --------------------------------------------------
 
-The generator needs "dat" files with tabulated structure functions and fit parameters. They are located in the "data" subfolder inside the EG directory. If you move it, you need to define the environment variable "data_dir_2pi" that points to the new folder location (e.g in csh use "setenv data_dir_2pi new_path/").
+The generator needs "dat" files with tabulated structure functions and fit parameters. They are located in the "data" subfolder inside the EG directory. If you move it, you need to define the environment variable "data_dir_2pi" that points to the new folder location (e.g. in csh use "setenv data_dir_2pi new_path/").
 
 --------------------------------------------------
 
