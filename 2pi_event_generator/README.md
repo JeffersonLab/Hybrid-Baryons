@@ -1,8 +1,8 @@
 Generator is exclusive and electroproduction (but at low Q2 it uses photoproduction data as a limiting point). It works for all Q2 starting from very small (0.005 GeV^2) and W from the threshold to 4.5 GeV.
 
-The generator works in the following way: first, it generates phase space (flat) distributions and then for each event multidimensional cross section is applied as a weight. 
+The generator performs weighted event generation: first, it generates phase space (flat) distributions and then for each event multidimensional cross section is applied as a weight (see CLAS12-NOTE-2017-001). 
 
-The generator includes radiative effects according to Mo&Tsai. It also includes Fermi smearing if needed (see CLAS12-NOTE-2014).
+The generator includes radiative effects according to Mo&Tsai. It also includes Fermi smearing if needed (see CLAS12-NOTE-2017-014).
 
 --------------------------------------------------
 
@@ -53,7 +53,7 @@ The generator supports two options for taking the input parameters:
 
 --------------------------------------------------
 
-The generator needs .dat files with tabulated structure functions and fit parameters. They are located in the "data" subfolder inside the EG directory. If you move it, you need to define environment variable "data_dir_2pi" that points to the new folder location (for example in csh use "setenv data_dir_2pi new_path/").
+The generator needs "dat" files with tabulated structure functions and fit parameters. They are located in the "data" subfolder inside the EG directory. If you move it, you need to define the environment variable "data_dir_2pi" that points to the new folder location (e.g in csh use "setenv data_dir_2pi new_path/").
 
 --------------------------------------------------
 
