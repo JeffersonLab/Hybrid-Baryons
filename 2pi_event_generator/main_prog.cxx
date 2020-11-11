@@ -49,12 +49,10 @@
 #include "get_xsect_golovach.h"
 #include "get_xsect_fedotov.h"
 #include "get_xsect_rip_fed_join.h"
-
 #include "get_xsect_w16_18_lowq2_fit.h"
 #include "get_xsect_w18_25.h"
 #include "get_xsect_w25_30.h"
 #include "get_xsect_w30_45.h"
-
 #include "interpol_int.h"
 #include "radcorr.h"
 #include "fermi_bonn.h"
@@ -185,8 +183,6 @@ inp_couts(E_beam);
 read_xsect_files();
 //Reading fit parameterms, which are needed for cross section extrapolation
 read_fit_param_files();
-//Defining some histograms
-hist_def(E_beam);   
      
 //Reasonably changing max&min limits of kinematical variables if needed
 cout << "___________________________________________\n\n";
@@ -222,6 +218,9 @@ if (W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min) {
 W_max = sqrt(MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min);
 cout << "Maximum W  has been changed to " << W_max << "\n";
 };
+
+//Defining some histograms
+hist_def(E_beam); 
   
 //Defining the 4-vectors of the initial particles (e and p)
 P4_Pini.SetXYZT(0.,0.,0.,MP); 
@@ -408,15 +407,13 @@ Q2nodata = Q2;
 if (Q2 > 1.299)Q2 = 1.299;
 if (Q2 < 0.0005)Q2 = 0.0005;
 
-if (W<1.2375){
-
 sigma_t_final = 0.;
 sigma_l_final = 0.;
 sigma_c2f_final = 0.;
 sigma_s2f_final = 0.;
 sigma_cf_final = 0.;
 sigma_sf_final = 0.;
-};
+
 
 //Getting cross section in given generated (W, Q2, s12, s23, theta, alpha)-point
 sigma_total = 0.;
@@ -573,7 +570,7 @@ sigma_sf_final = sigma_sf_final*Func_q2_dep(Q2nodata)/Func_q2_dep(1.299);
 
 Q2 = Q2nodata;
 
-if (W < 1.2375){
+if ((W < 1.2375)||(W > 4.5375)){
 sigma_t_final = 0.;
 sigma_l_final = 0.;
 sigma_c2f_final = 0.;
@@ -595,7 +592,7 @@ eps_l = Q2*eps_t/nu_g/nu_g;
 
 sigma_total =0.;
 
-if ((isnan(eps_l))||(isnan(eps_t))) cout << eps_l<< " "<< eps_t<<"\n";
+if ((isnan(eps_l))||(isnan(eps_t))) cout << eps_l<< " "<< eps_t<<" eps in nan\n";
 
 if  (!(eps_l>0.)&&!(eps_l<0)) eps_l = 0.;
 if  (!(eps_t>0.)&&!(eps_t<0)) eps_t = 0.;
@@ -606,13 +603,13 @@ sigma_total = sigma_total + eps_l*sigma_l_final;
 sigma_total = sigma_total + eps_t*(sigma_c2f_final*cos(2.*ph_hadr) + sigma_s2f_final*sin(2.*ph_hadr));
 sigma_total = sigma_total + sqrt(2.*eps_l*(eps_t+1))*(sigma_cf_final*cos(ph_hadr) + sigma_sf_final*sin(ph_hadr));
 
-if ((isnan(sigma_total))||(isnan(V_flux))) cout<<W_old<< " "<<W<<" "<<Q2_old<< " "<< Q2<< sigma_total<<" "<<sigma_t_final<< " "<< sigma_l_final<<" "<< sigma_c2f_final<< " "<< eps_l<<" oo2\n";
+if ((isnan(sigma_total))||(isnan(V_flux))) cout<<W_old<< " "<<W<<" "<<Q2_old<< " "<< Q2<<" "<< sigma_total<<" "<<sigma_t_final<< " "<< sigma_l_final<<" "<< sigma_c2f_final<< " "<< eps_l<<" weight is nan\n";
 
 
 //Adding additional rad corr weight factor, if needed
 if ((flag_radmod == 1)||(flag_radmod == 2)) {
 sigma_total = sigma_total*cr_rad_fact;
-if ((isnan(sigma_total))||(isnan(cr_rad_fact))) cout<< sigma_total<<" "<<cr_rad_fact<<" oo\n";
+if ((isnan(sigma_total))||(isnan(cr_rad_fact))) cout<< sigma_total<<" "<<cr_rad_fact<<" weight rad eff is nan\n";
 };
 
 
