@@ -215,15 +215,11 @@ Q2_max = Q2lim2;
 cout << "Maximum Q2 has been changed to " << Q2_max << "\n";
 };
    
-if ((W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min)&&(W_max <= 4.5375)) {
+if ((W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min)) {
 W_max = sqrt(MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min);
 cout << "Maximum W  has been changed to " << W_max << "\n";
 };
 
-if (W_max > 4.5375) {
-W_max = 4.5375;
-cout << "Maximum W  has been changed to " << W_max << "\n";
-};
 
 //Defining some histograms
 hist_def(E_beam); 
