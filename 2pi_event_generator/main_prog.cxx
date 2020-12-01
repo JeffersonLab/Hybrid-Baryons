@@ -77,7 +77,7 @@
      return x*x*y+x*y*y+z*z*u+z*u*u+v*v*w+v*w*w+x*z*w+x*u*v+y*z*v+y*u*w-x*y*(z+u+v+w)-z*u*(x+y+v+w)-v*w*(x+y+z+u);
      };
 
-//This is the function that peprformes generation. It is declared here and executes below.   
+//This is the function that performs the generation. It is declared here and executes below.   
 void generate(Int_t argc, char *argv[]);
 
 
@@ -96,7 +96,7 @@ return 0;
 };
 
 
-//This is the function that peprformes generation.
+//This is the function that performs the generation.
 void generate(Int_t argc, char *argv[]) {
 
 global();
@@ -256,7 +256,7 @@ cout <<"\n";
  
 if (flag_seed == 0) seed = time(NULL);
 srand (seed);
-cout << "RandomSeedActuallyUsed: " << seed << endl; 
+cout << "RandomSeedActuallyUsed: " << seed << endl;       
        
  TRandom3 ph_e_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
  TRandom3 th_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
@@ -595,7 +595,7 @@ eps_l = Q2*eps_t/nu_g/nu_g;
 
 sigma_total =0.;
 
-if ((isnan(eps_l))||(isnan(eps_t))) cout << eps_l<< " "<< eps_t<<" eps in nan\n";
+if ((isnan(eps_l))||(isnan(eps_t))) cout << eps_l<< " "<< eps_t<<" eps in nan!\n";
 
 if  (!(eps_l>0.)&&!(eps_l<0)) eps_l = 0.;
 if  (!(eps_t>0.)&&!(eps_t<0)) eps_t = 0.;
@@ -606,13 +606,11 @@ sigma_total = sigma_total + eps_l*sigma_l_final;
 sigma_total = sigma_total + eps_t*(sigma_c2f_final*cos(2.*ph_hadr) + sigma_s2f_final*sin(2.*ph_hadr));
 sigma_total = sigma_total + sqrt(2.*eps_l*(eps_t+1))*(sigma_cf_final*cos(ph_hadr) + sigma_sf_final*sin(ph_hadr));
 
-if ((isnan(sigma_total))||(isnan(V_flux))) cout<<W_old<< " "<<W<<" "<<Q2_old<< " "<< Q2<<" "<< sigma_total<<" "<<sigma_t_final<< " "<< sigma_l_final<<" "<< sigma_c2f_final<< " "<< eps_l<<" weight is nan\n";
-
-
 //Adding additional rad corr weight factor, if needed
 if ((flag_radmod == 1)||(flag_radmod == 2)) {
 sigma_total = sigma_total*cr_rad_fact;
-if ((isnan(sigma_total))||(isnan(cr_rad_fact))) cout<< sigma_total<<" "<<cr_rad_fact<<" weight rad eff is nan\n";
+if (isnan(cr_rad_fact)) cout<< sigma_total<<" "<<cr_rad_fact<<" RadCorFactor is nan!\n";
+if (!(cr_rad_fact>0.)&&!(cr_rad_fact<0.)&&!(isnan(cr_rad_fact))) cout << "RadCorFactor is zero.\n";
 };
 
 
@@ -643,6 +641,11 @@ V_flux = V_flux*W*(W*W-MP*MP);
 
 sigma_total = sigma_total*V_flux;    
 };
+
+if ((isnan(sigma_total))||(isnan(V_flux))) cout << "Sigma = "<< sigma_total << ", Flux = "<< V_flux <<", W_old =  "<< W_old<< ", W =  "<<W<<", Q2 =  "<<Q2<<  ", Weight is nan!\n";
+
+if (!(sigma_total>0.)&&!(sigma_total<0.)&&!(isnan(sigma_total))&&(W_old<=4.5375)) cout <<"Sigma = "<< sigma_total <<", W_old =  "<< W_old<< ", W_ferm =  "<<W_ferm<<", W = "<<W<<", Q2 =  "<<Q2<<  ", Zero cross section!\n";
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //%%%%%%%!III. OBTAINING THE FINAL PARTICLE FOUR-MOMENTA IN THE LAB FRAME!%%%%%%%
